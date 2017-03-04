@@ -5,13 +5,7 @@
 #include <assert.h>
 
 #include IMPL
-
-#ifdef OPT
-#define OUT_FILE "opt.txt"
-#else
-#define OUT_FILE "orig.txt"
-#endif
-
+//think about what's this??
 #define DICT_FILE "./dictionary/words.txt"
 
 static double diff_in_second(struct timespec t1, struct timespec t2)
@@ -26,7 +20,9 @@ static double diff_in_second(struct timespec t1, struct timespec t2)
     }
     return (diff.tv_sec + diff.tv_nsec / 1000000000.0);
 }
-
+/*
+	It's the function which are calculating the time
+*/
 int main(int argc, char *argv[])
 {
     FILE *fp;
@@ -75,25 +71,38 @@ int main(int argc, char *argv[])
     assert(findName(input, e) &&
            "Did you implement findName() in " IMPL "?");
     assert(0 == strcmp(findName(input, e)->lastName, "zyxel"));
-
+    //check by the function what we call
 #if defined(__GNUC__)
     __builtin___clear_cache((char *) pHead, (char *) pHead + sizeof(entry));
 #endif
     /* compute the execution time */
     clock_gettime(CLOCK_REALTIME, &start);
-    findName(input, e);
+    findName(input, e);//this is the user create the function (file)
     clock_gettime(CLOCK_REALTIME, &end);
     cpu_time2 = diff_in_second(start, end);
 
-    FILE *output = fopen(OUT_FILE, "a");
+    FILE *output;
+#if defined(OPT)
+    output = fopen("opt.txt", "a");
+#else
+    output = fopen("orig.txt", "a");
+#endif
     fprintf(output, "append() findName() %lf %lf\n", cpu_time1, cpu_time2);
     fclose(output);
 
     printf("execution time of append() : %lf sec\n", cpu_time1);
     printf("execution time of findName() : %lf sec\n", cpu_time2);
 
+
+    while((e=pHead)) {
+        pHead=pHead->pNext;
+        free(e);
+    }
+    /*
+    (source code)
     if (pHead->pNext) free(pHead->pNext);
     free(pHead);
-
+    */
+    //This loop would only free once of the
     return 0;
 }
