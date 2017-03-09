@@ -5,7 +5,6 @@
 #include <assert.h>
 
 #include IMPL
-//think about what's this??
 #define DICT_FILE "./dictionary/words.txt"
 
 static double diff_in_second(struct timespec t1, struct timespec t2)
@@ -20,9 +19,6 @@ static double diff_in_second(struct timespec t1, struct timespec t2)
     }
     return (diff.tv_sec + diff.tv_nsec / 1000000000.0);
 }
-/*
-	It's the function which are calculating the time
-*/
 int main(int argc, char *argv[])
 {
     FILE *fp;
@@ -43,7 +39,7 @@ int main(int argc, char *argv[])
     pHead = (entry *) malloc(sizeof(entry));
     printf("size of entry : %lu bytes\n", sizeof(entry));
     e = pHead;
-    e->pNext = NULL;
+    e->pNext = NULL;;
 
 #if defined(__GNUC__)
     __builtin___clear_cache((char *) pHead, (char *) pHead + sizeof(entry));
@@ -94,15 +90,17 @@ int main(int argc, char *argv[])
     printf("execution time of findName() : %lf sec\n", cpu_time2);
 
 
-    while((e=pHead)) {
+    while(e=pHead) {
         pHead=pHead->pNext;
         free(e);
     }
+
+    //   (source code)
     /*
-    (source code)
-    if (pHead->pNext) free(pHead->pNext);
-    free(pHead);
+       if (pHead->pNext) free(pHead->pNext);
+       free(pHead);
     */
-    //This loop would only free once of the
+    //This loop would only free once of the memory ,hence i change it to the whileloop\
+    to make sure free the memoery
     return 0;
 }

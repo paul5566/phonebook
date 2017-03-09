@@ -1,6 +1,6 @@
-#include<stdlib.h>
-#include<stdio.h>/*we may use this library of function	*/
-#include<string.h>    /*we may use this library of function	*/
+#include <stdlib.h>
+#include <stdio.h>/*we may use this library of function	*/
+#include <string.h>    /*we may use this library of function	*/
 #include "phonebook_opt.h"
 
 /* FILL YOUR OWN IMPLEMENTATION HERE! */
