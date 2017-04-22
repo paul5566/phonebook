@@ -95,12 +95,31 @@ int main(int argc, char *argv[])
         free(e);
     }
 
-    //   (source code)
+//  ******* (source code)********
+
     /*
        if (pHead->pNext) free(pHead->pNext);
        free(pHead);
-    */
-    //This loop would only free once of the memory ,hence i change it to the whileloop\
+
+    This loop would only free once of the memory ,hence i change it to the whileloop\
     to make sure free the memoery
+    */
+//   *********(function to free the node as the reference)*********
+    /*
+       void free_node (node_t * phead)
+       {
+       node_t * tmp;
+       node_t * current = pHead;
+       while(current){
+       tmp = current;
+       current = current->pNext;
+       free(tmp);
+       }
+       }
+
+
+    */
+
+
     return 0;
 }
